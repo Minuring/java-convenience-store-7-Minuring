@@ -59,4 +59,8 @@ public class Promotion {
             throw new IllegalArgumentException(EXACT_PROMOTION_GET.message());
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }
