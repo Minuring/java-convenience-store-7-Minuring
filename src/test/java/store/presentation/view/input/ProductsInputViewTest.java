@@ -5,12 +5,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import store.dto.BuyRequest;
+import store.presentation.view.IOTest;
 
-class ProductsInputViewTest {
+class ProductsInputViewTest extends IOTest {
 
     @Test
     void 상품_이름과_수량을_입력한다() throws Exception {
-        InputTestManager.setReadLine("[사이다-2],[감자칩-1]");
+        systemIn("[사이다-2],[감자칩-1]");
         ProductsInputView productsInputView = new ProductsInputView();
 
         List<BuyRequest> buyRequests = productsInputView.read();

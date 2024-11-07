@@ -14,7 +14,7 @@ public class ProductsInputView extends InputView<List<BuyRequest>> {
     private static final String PATTERN_REGEX = "(\\[[가-힣a-zA-Z0-9]+[-]\\d+\\],?\\s?)+";
 
     @Override
-    protected void printLabel() {
+    protected void printLabel(Object... args) {
         System.out.println(INPUT_PRODUCTS.get());
     }
 
