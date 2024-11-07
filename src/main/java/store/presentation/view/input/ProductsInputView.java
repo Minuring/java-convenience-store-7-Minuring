@@ -6,6 +6,7 @@ import static store.presentation.view.ViewErrors.INVALID_FORMAT;
 import java.util.ArrayList;
 import java.util.List;
 import store.dto.BuyRequest;
+import store.presentation.view.input.abstractview.InputView;
 
 public class ProductsInputView extends InputView<List<BuyRequest>> {
 

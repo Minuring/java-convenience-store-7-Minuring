@@ -1,27 +1,13 @@
 package store.presentation.view.input;
 
 import static store.presentation.view.Message.INPUT_PROMOTION_FAILED;
-import static store.presentation.view.ViewErrors.INVALID_FORMAT;
 
-public class PromotionFailedInputView extends InputView<Boolean> {
+import store.presentation.view.input.abstractview.BooleanInputView;
 
-    private static final String PATTERN_REGEX = "[YyNn]";
+public class PromotionFailedInputView extends BooleanInputView {
 
     @Override
     protected void printLabel(Object... args) {
         System.out.println(INPUT_PROMOTION_FAILED.get(args));
-    }
-
-    @Override
-    protected Boolean convert(String input) {
-        input = input.trim();
-        validateFormat(input);
-        return "Y".equalsIgnoreCase(input);
-    }
-
-    private void validateFormat(String input) {
-        if (!input.matches(PATTERN_REGEX) || input.isEmpty()) {
-            throw new IllegalArgumentException(INVALID_FORMAT.message());
-        }
     }
 }
