@@ -1,4 +1,4 @@
-package store.discount.promotion;
+package store.discount.promotion.domain;
 
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,9 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import store.discount.promotion.exception.PromotionNotFoundException;
 
-class PromotionsTest {
+class PromotionsImplTest {
 
-    private final Promotions promotions = new Promotions();
+    private final PromotionsImpl promotions = new PromotionsImpl();
     private Promotion samplePromotion;
 
     @BeforeEach

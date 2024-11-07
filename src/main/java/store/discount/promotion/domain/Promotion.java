@@ -1,4 +1,4 @@
-package store.discount.promotion;
+package store.discount.promotion.domain;
 
 import static store.constant.Constant.EXACT_GET_PROMOTION;
 import static store.constant.Constant.MAX_BUY_PROMOTION;

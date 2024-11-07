@@ -2,7 +2,7 @@ package store.common.collector;
 
 import java.time.LocalDate;
 import store.constant.FilePath;
-import store.discount.promotion.Promotion;
+import store.discount.promotion.domain.Promotion;
 
 public class PromotionCollector extends FileContentCollector<Promotion> {
 

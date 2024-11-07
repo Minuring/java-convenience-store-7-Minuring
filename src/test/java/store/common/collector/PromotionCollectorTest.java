@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import store.constant.FilePath;
-import store.discount.promotion.Promotion;
+import store.discount.promotion.domain.Promotion;
 
 class PromotionCollectorTest {
 

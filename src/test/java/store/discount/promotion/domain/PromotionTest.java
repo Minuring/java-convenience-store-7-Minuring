@@ -1,4 +1,4 @@
-package store.discount.promotion;
+package store.discount.promotion.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
