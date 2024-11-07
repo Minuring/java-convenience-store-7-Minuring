@@ -5,14 +5,13 @@ import static store.presentation.view.ViewErrors.INVALID_FORMAT;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import store.dto.BuyRequest;
 
 public class ProductsInputView extends InputView<List<BuyRequest>> {
 
     private static final String PRODUCTS_SEPARATOR = ",";
     private static final String NAME_AMOUNT_SEPARATOR = "-";
-    private static final Pattern PATTERN = Pattern.compile("(\\[[가-힣a-zA-Z0-9]+[-]\\d+\\],?\\s?)+");
+    private static final String PATTERN_REGEX = "(\\[[가-힣a-zA-Z0-9]+[-]\\d+\\],?\\s?)+";
 
     @Override
     protected void printLabel() {
@@ -49,8 +48,7 @@ public class ProductsInputView extends InputView<List<BuyRequest>> {
     }
 
     protected void validateFormat(String input) {
-        boolean isFormatMatched = PATTERN.matcher(input).matches();
-        if (!isFormatMatched) {
+        if (!input.matches(PATTERN_REGEX)) {
             throw new IllegalArgumentException(INVALID_FORMAT.message());
         }
     }
