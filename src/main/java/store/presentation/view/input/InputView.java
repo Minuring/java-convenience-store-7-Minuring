@@ -4,8 +4,8 @@ import camp.nextstep.edu.missionutils.Console;
 
 public abstract class InputView<T> {
 
-    public T read() throws IllegalArgumentException {
-        printLabel();
+    public T read(Object... args) throws IllegalArgumentException {
+        printLabel(args);
         String input = readInput();
         return convert(input);
     }
@@ -14,7 +14,7 @@ public abstract class InputView<T> {
         return Console.readLine();
     }
 
-    protected abstract void printLabel();
+    protected abstract void printLabel(Object... args);
 
     protected abstract T convert(String input);
 }
