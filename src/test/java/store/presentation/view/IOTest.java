@@ -25,10 +25,9 @@ public abstract class IOTest {
     }
 
     @AfterEach
-    protected void printResult() {
+    protected void cleanUp() {
         System.setIn(InputStream.nullInputStream());
         System.setOut(standardOut);
-        System.out.println(getOutput());
 
         Console.close();
     }
