@@ -1,10 +1,10 @@
 package store.discount.promotion.domain;
 
-import static store.constant.Constant.EXACT_GET_PROMOTION;
-import static store.constant.Constant.MAX_BUY_PROMOTION;
-import static store.constant.Constant.MAX_LENGTH_PROMOTION_NAME;
-import static store.constant.Constant.MIN_BUY_PROMOTION;
-import static store.constant.Constant.MIN_LENGTH_PROMOTION_NAME;
+import static store.constant.ConstantNumbers.EXACT_GET_PROMOTION;
+import static store.constant.ConstantNumbers.MAX_BUY_PROMOTION;
+import static store.constant.ConstantNumbers.MAX_LENGTH_PROMOTION_NAME;
+import static store.constant.ConstantNumbers.MIN_BUY_PROMOTION;
+import static store.constant.ConstantNumbers.MIN_LENGTH_PROMOTION_NAME;
 import static store.constant.Errors.EXACT_PROMOTION_GET;
 import static store.constant.Errors.LENGTH_PROMOTION_NAME;
 
