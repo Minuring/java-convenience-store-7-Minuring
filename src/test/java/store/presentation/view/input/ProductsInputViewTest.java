@@ -29,9 +29,9 @@ class ProductsInputViewTest extends IOTest {
         BuyRequest first = buyRequests.getFirst();
         BuyRequest last = buyRequests.getLast();
 
-        assertThat(first.getItemName()).isEqualTo("사이다");
-        assertThat(first.getAmount()).isEqualTo(2);
-        assertThat(last.getItemName()).isEqualTo("감자칩");
-        assertThat(last.getAmount()).isEqualTo(1);
+        assertThat(first.itemName()).isEqualTo("사이다");
+        assertThat(first.amount()).isEqualTo(2);
+        assertThat(last.itemName()).isEqualTo("감자칩");
+        assertThat(last.amount()).isEqualTo(1);
     }
 }
