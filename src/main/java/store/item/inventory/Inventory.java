@@ -13,5 +13,7 @@ public interface Inventory {
 
     NormalItem getNormalByName(String itemName);
 
+    int getTotalStockByName(String itemName);
+
     List<Item> getAllItems();
 }

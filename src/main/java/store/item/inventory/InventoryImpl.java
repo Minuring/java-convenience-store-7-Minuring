@@ -36,6 +36,13 @@ public class InventoryImpl implements Inventory {
     }
 
     @Override
+    public int getTotalStockByName(String itemName) {
+        NormalItem normalItem = getNormalByName(itemName);
+        PromotionItem promotionItem = getPromotionByName(itemName);
+        return normalItem.getStock() + promotionItem.getStock();
+    }
+
+    @Override
     public List<Item> getAllItems() {
         return Collections.unmodifiableList(inventory);
     }
