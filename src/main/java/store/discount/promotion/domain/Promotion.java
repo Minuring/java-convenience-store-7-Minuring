@@ -40,6 +40,10 @@ public class Promotion {
             || (startDate.isBefore(timeLocalDate) && endDate.isAfter(timeLocalDate));
     }
 
+    public int getUnit() {
+        return get + buy;
+    }
+
     private static void validateName(String name) {
         if (name == null
             || name.length() < MIN_LENGTH_PROMOTION_NAME
