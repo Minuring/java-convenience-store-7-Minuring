@@ -34,6 +34,14 @@ public abstract class Item implements Comparable<Item> {
         return name;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
     @Override
     public int compareTo(Item other) {
         if (comparingNormalPromotion(other)) {
