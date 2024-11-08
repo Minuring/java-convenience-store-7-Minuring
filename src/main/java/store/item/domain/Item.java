@@ -1,6 +1,7 @@
 package store.item.domain;
 
 import java.util.Objects;
+import store.item.exception.NotEnoughStockException;
 
 public abstract class Item implements Comparable<Item> {
 
@@ -12,6 +13,13 @@ public abstract class Item implements Comparable<Item> {
         this.name = name;
         this.price = price;
         this.stock = stock;
+    }
+
+    public void removeStock(int amount) {
+        if (amount > stock) {
+            throw new NotEnoughStockException();
+        }
+        this.stock -= amount;
     }
 
     @Override

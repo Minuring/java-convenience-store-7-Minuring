@@ -20,7 +20,7 @@ public enum Errors {
     LENGTH_PROMOTION_BUY("프로모션 혜택은 최소 %d개에서 최대 %d까지 구매해야 합니다.", MIN_BUY_PROMOTION,
         MAX_BUY_PROMOTION),
     EXACT_PROMOTION_GET("프로모션 혜택 당 증정상품은 반드시 %d개입니다.", EXACT_GET_PROMOTION),
-    NOT_ENOUGH_STOCK("재고가 충분하지 않습니다."),
+    NOT_ENOUGH_STOCK("재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요."),
     NOT_FOUND_PROMOTION("존재하지 않는 프로모션입니다."),
     NOT_FOUND_ITEM("존재하지 않는 상품입니다. 다시 입력해 주세요.");
 
