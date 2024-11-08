@@ -21,7 +21,8 @@ public enum Errors {
         MAX_BUY_PROMOTION),
     EXACT_PROMOTION_GET("프로모션 혜택 당 증정상품은 반드시 %d개입니다.", EXACT_GET_PROMOTION),
     NOT_ENOUGH_STOCK("재고가 충분하지 않습니다."),
-    NOT_FOUND_PROMOTION("존재하지 않는 프로모션입니다.");
+    NOT_FOUND_PROMOTION("존재하지 않는 프로모션입니다."),
+    NOT_FOUND_ITEM("존재하지 않는 상품입니다. 다시 입력해 주세요.");
 
     private static final String PREFIX = "[ERROR] ";
     private final String message;
