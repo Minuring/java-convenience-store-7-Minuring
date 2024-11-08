@@ -12,6 +12,7 @@ public abstract class IOTest {
 
     private ByteArrayOutputStream outputStreamCaptor;
     private PrintStream standardOut;
+    protected final String LINE_SEPARATOR = System.lineSeparator();
 
     protected void systemIn(String input) {
         System.setIn(new ByteArrayInputStream(input.getBytes()));

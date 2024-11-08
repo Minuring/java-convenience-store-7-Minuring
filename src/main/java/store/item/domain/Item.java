@@ -1,6 +1,8 @@
 package store.item.domain;
 
-public abstract class Item {
+import java.util.Objects;
+
+public abstract class Item implements Comparable<Item> {
 
     protected final String name;
     protected final int price;
@@ -22,5 +24,26 @@ public abstract class Item {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Item other) {
+        if (comparingNormalPromotion(other)) {
+            return 1;
+        }
+        if (comparingPromotionNormal(other)) {
+            return -1;
+        }
+        return 0;
+    }
+
+    private boolean comparingPromotionNormal(Item other) {
+        return Objects.equals(name, other.name)
+            && this instanceof PromotionItem && other instanceof NormalItem;
+    }
+
+    private boolean comparingNormalPromotion(Item other) {
+        return Objects.equals(name, other.name)
+            && this instanceof NormalItem && other instanceof PromotionItem;
     }
 }

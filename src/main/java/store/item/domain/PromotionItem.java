@@ -13,6 +13,6 @@ public class PromotionItem extends Item {
 
     @Override
     public String toString() {
-        return super.toString() + " " + name;
+        return super.toString() + " " + promotion.getName();
     }
 }
