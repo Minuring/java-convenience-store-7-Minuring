@@ -3,10 +3,11 @@ package store.item.inventory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 import store.item.domain.Item;
 import store.item.domain.NormalItem;
 import store.item.domain.PromotionItem;
-import store.item.exception.ItemNotFoundException;
 
 public class InventoryImpl implements Inventory {
 
@@ -18,28 +19,40 @@ public class InventoryImpl implements Inventory {
     }
 
     @Override
-    public PromotionItem getPromotionByName(String itemName) {
+    public boolean hasItemByName(String itemName) {
         return inventory.stream()
-            .filter(item -> item instanceof PromotionItem)
-            .map(item -> (PromotionItem) item)
-            .findAny()
-            .orElseThrow(ItemNotFoundException::new);
+            .map(Item::getName)
+            .anyMatch(itemName::equals);
     }
 
     @Override
-    public NormalItem getNormalByName(String itemName) {
-        return inventory.stream()
+    public Optional<PromotionItem> findPromotionItemByName(String itemName) {
+        return getByName(itemName)
+            .filter(item -> item instanceof PromotionItem)
+            .map(item -> (PromotionItem) item)
+            .findAny();
+    }
+
+    @Override
+    public Optional<NormalItem> findNormalItemByName(String itemName) {
+        return getByName(itemName)
             .filter(item -> item instanceof NormalItem)
             .map(item -> (NormalItem) item)
-            .findAny()
-            .orElseThrow(ItemNotFoundException::new);
+            .findAny();
+    }
+
+    private Stream<Item> getByName(String itemName) {
+        return inventory.stream()
+            .filter(item -> item.getName().equals(itemName));
     }
 
     @Override
     public int getTotalStockByName(String itemName) {
-        NormalItem normalItem = getNormalByName(itemName);
-        PromotionItem promotionItem = getPromotionByName(itemName);
-        return normalItem.getStock() + promotionItem.getStock();
+        int totalStock = 0;
+        totalStock += findNormalItemByName(itemName).map(Item::getStock).orElse(0);
+        totalStock += findPromotionItemByName(itemName).map(Item::getStock).orElse(0);
+
+        return totalStock;
     }
 
     @Override

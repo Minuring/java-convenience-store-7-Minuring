@@ -3,6 +3,7 @@ package store.mock;
 import static java.time.LocalDate.now;
 
 import java.util.List;
+import java.util.Optional;
 import store.discount.promotion.domain.Promotion;
 import store.item.domain.Item;
 import store.item.domain.NormalItem;
@@ -17,13 +18,18 @@ public class MockInventory implements Inventory {
     }
 
     @Override
-    public PromotionItem getPromotionByName(String itemName) {
-        return null;
+    public boolean hasItemByName(String itemName) {
+        return false;
     }
 
     @Override
-    public NormalItem getNormalByName(String itemName) {
-        return null;
+    public Optional<PromotionItem> findPromotionItemByName(String itemName) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<NormalItem> findNormalItemByName(String itemName) {
+        return Optional.empty();
     }
 
     @Override
