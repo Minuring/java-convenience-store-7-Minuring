@@ -16,6 +16,10 @@ public class PromotionItem extends Item {
         return amount / promotion.getUnit();
     }
 
+    public int countTakeToGetFree(int freeAmount) {
+        return freeAmount * promotion.getUnit();
+    }
+
     public int countRemainsToApply(int amount) {
         int unit = promotion.getUnit();
         return (unit - amount % unit) % unit;
