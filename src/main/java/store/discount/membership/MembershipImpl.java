@@ -8,7 +8,7 @@ public class MembershipImpl implements Membership {
     @Override
     public int discount(int amount) {
         double discountAmount = Math.min(
-            amount * percentToRate(PERCENT_MEMBERSHIP), MAX_MEMBERSHIP
+            amount * percentToRate(PERCENT_MEMBERSHIP.get()), MAX_MEMBERSHIP.get()
         );
         return (int) Math.round(discountAmount);
     }

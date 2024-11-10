@@ -79,16 +79,16 @@ public class OrderServiceImpl implements OrderService {
 
         if (canGetFreeIfAppend(buyAmount, promotionItem)
             && ExceptionFacade.process(() ->
-            appendOneListener.apply(promotionItem.getName(), EXACT_GET_PROMOTION))) {
-            usage += EXACT_GET_PROMOTION;
+            appendOneListener.apply(promotionItem.getName(), EXACT_GET_PROMOTION.get()))) {
+            usage += EXACT_GET_PROMOTION.get();
         }
         return usage;
     }
 
     private boolean canGetFreeIfAppend(int amount, PromotionItem promotionItem) {
         return promotionItem.canApplyAt(now())
-            && promotionItem.countRemainsToApply(amount) == EXACT_GET_PROMOTION
-            && promotionItem.getStock() >= amount + EXACT_GET_PROMOTION;
+            && promotionItem.countRemainsToApply(amount) == EXACT_GET_PROMOTION.get()
+            && promotionItem.getStock() >= amount + EXACT_GET_PROMOTION.get();
     }
 
     private void processNormalStock(BuyRequest buyRequest, OrderItem orderItem) {

@@ -46,20 +46,20 @@ public class Promotion {
 
     private static void validateName(String name) {
         if (name == null
-            || name.length() < MIN_LENGTH_PROMOTION_NAME
-            || name.length() > MAX_LENGTH_PROMOTION_NAME) {
+            || name.length() < MIN_LENGTH_PROMOTION_NAME.get()
+            || name.length() > MAX_LENGTH_PROMOTION_NAME.get()) {
             throw new IllegalArgumentException(LENGTH_PROMOTION_NAME.message());
         }
     }
 
     private static void validateBuy(int buy) {
-        if (buy < MIN_BUY_PROMOTION || buy > MAX_BUY_PROMOTION) {
+        if (buy < MIN_BUY_PROMOTION.get() || buy > MAX_BUY_PROMOTION.get()) {
             throw new IllegalArgumentException(Errors.LENGTH_PROMOTION_BUY.message());
         }
     }
 
     private static void validateGet(int get) {
-        if (get != EXACT_GET_PROMOTION) {
+        if (get != EXACT_GET_PROMOTION.get()) {
             throw new IllegalArgumentException(EXACT_PROMOTION_GET.message());
         }
     }
