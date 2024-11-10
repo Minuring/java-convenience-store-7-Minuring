@@ -10,18 +10,7 @@ public enum Message {
     INPUT_PROMOTION_APPEND("현재 %s은(는) %d개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)"),
     INPUT_PROMOTION_FAILED("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)"),
     INPUT_MEMBERSHIP("멤버십 할인을 받으시겠습니까? (Y/N)"),
-    INPUT_BUY_MORE("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)"),
-
-    RECEIPT_HEADER("===========W 편의점============="),
-    RECEIPT_PRODUCTS_HEADER("상품명\t\t수량\t금액"),
-    RECEIPT_PRODUCT("%s \t\t%d \t%,d"),
-    RECEIPT_PROMOTION_HEADER("===========증\t정============="),
-    RECEIPT_PROMOTION("%s\t\t%d"),
-    RECEIPT_SEPARATOR("=============================="),
-    RECEIPT_TOTAL_PRICE("총구매액\t\t%d\t%,d"),
-    RECEIPT_PROMOTION_DISCOUNT("행사할인\t\t\t-%,d"),
-    RECEIPT_MEMBERSHIP_DISCOUNT("멤버십할인\t\t\t-%,d"),
-    RECEIPT_PAY("내실돈\t\t\t %,d");
+    INPUT_BUY_MORE("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
 
     private final String message;
 

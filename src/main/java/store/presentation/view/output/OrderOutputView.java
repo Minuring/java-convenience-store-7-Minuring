@@ -1,56 +1,59 @@
 package store.presentation.view.output;
 
-import static store.presentation.view.Message.RECEIPT_HEADER;
-import static store.presentation.view.Message.RECEIPT_MEMBERSHIP_DISCOUNT;
-import static store.presentation.view.Message.RECEIPT_PAY;
-import static store.presentation.view.Message.RECEIPT_PRODUCT;
-import static store.presentation.view.Message.RECEIPT_PRODUCTS_HEADER;
-import static store.presentation.view.Message.RECEIPT_PROMOTION;
-import static store.presentation.view.Message.RECEIPT_PROMOTION_DISCOUNT;
-import static store.presentation.view.Message.RECEIPT_PROMOTION_HEADER;
-import static store.presentation.view.Message.RECEIPT_SEPARATOR;
-import static store.presentation.view.Message.RECEIPT_TOTAL_PRICE;
-
 import store.order.domain.Order;
 import store.presentation.view.output.abstractview.ArgumentOutputView;
 
 public class OrderOutputView extends ArgumentOutputView<Order> {
 
+    protected static final String HEADER = "===========W 편의점=============";
+    protected static final String PRODUCTS_HEADER = String.format("%-15s %-5s %-5s", "상품명", "수량",
+        "금액");
+    protected static final String PRODUCT = "%-15s %-5d %-,5d";
+    protected static final String PROMOTION_HEADER = "===========증\t정=============";
+    protected static final String PROMOTION = "%-15s %d";
+    protected static final String SEPARATOR = "==============================";
+    protected static final String TOTAL_PRICE = "%-15s %-5d %-,5d";
+    protected static final String PROMOTION_DISCOUNT = "%-20s  -%-,5d";
+    protected static final String MEMBERSHIP_DISCOUNT = "%-20s  -%-,5d";
+    protected static final String PAY = "%-20s  %-,5d";
+
     @Override
     protected void printHeader() {
-        System.out.println(RECEIPT_HEADER.get());
+        System.out.println(HEADER);
     }
 
     @Override
     protected void printBody(Order order) {
         printProducts(order);
-        printFrees(order);
+        if (order.getTotalDiscount() > 0) {
+            printFrees(order);
+        }
         printStatistics(order);
     }
 
     private void printProducts(Order order) {
-        System.out.println(RECEIPT_PRODUCTS_HEADER.get());
+        System.out.println(PRODUCTS_HEADER);
         order.getOrderItems().forEach(item -> {
-            String message = RECEIPT_PRODUCT.get(item.getName(), item.getQuantity(),
-                item.getPrice());
-            System.out.println(message);
+            String name = item.getName();
+            int quantity = item.getQuantity();
+            int price = item.getPrice();
+            System.out.println(String.format(PRODUCT, name, quantity, price * quantity));
         });
     }
 
     private void printFrees(Order order) {
-        System.out.println(RECEIPT_PROMOTION_HEADER.get());
+        System.out.println(PROMOTION_HEADER);
         order.getFreeItems().forEach((itemName, count) -> {
-            String message = RECEIPT_PROMOTION.get(itemName, count);
+            String message = String.format(PROMOTION, itemName, count);
             System.out.println(message);
         });
     }
 
     private void printStatistics(Order order) {
-        System.out.println(RECEIPT_SEPARATOR.get());
-        System.out.println(
-            RECEIPT_TOTAL_PRICE.get(order.getTotalQuantity(), order.getTotalPrice()));
-        System.out.println(RECEIPT_PROMOTION_DISCOUNT.get(order.getTotalDiscount()));
-        System.out.println(RECEIPT_MEMBERSHIP_DISCOUNT.get(order.getMembershipDiscount()));
-        System.out.println(RECEIPT_PAY.get(order.getActualPrice()));
+        System.out.println(SEPARATOR);
+        System.out.println(String.format(TOTAL_PRICE, "총구매액", order.getTotalQuantity(), order.getTotalPrice()));
+        System.out.println(String.format(PROMOTION_DISCOUNT, "행사할인", order.getTotalDiscount()));
+        System.out.println(String.format(MEMBERSHIP_DISCOUNT, "멤버십할인", order.getMembershipDiscount()));
+        System.out.println(String.format(PAY, "내실돈", order.getActualPrice()));
     }
 }
