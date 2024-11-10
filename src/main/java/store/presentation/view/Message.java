@@ -14,7 +14,7 @@ public enum Message {
 
     RECEIPT_HEADER("===========W 편의점============="),
     RECEIPT_PRODUCTS_HEADER("상품명\t\t수량\t금액"),
-    RECEIPT_PRODUCT("%s \t\t%d \t%,d\n"),
+    RECEIPT_PRODUCT("%s \t\t%d \t%,d"),
     RECEIPT_PROMOTION_HEADER("===========증\t정============="),
     RECEIPT_PROMOTION("%s\t\t%d"),
     RECEIPT_SEPARATOR("=============================="),
