@@ -5,6 +5,7 @@ import static store.constant.ConstantNumbers.EXACT_GET_PROMOTION;
 
 import java.util.List;
 import store.dto.BuyRequest;
+import store.facade.ExceptionFacade;
 import store.item.domain.NormalItem;
 import store.item.domain.PromotionItem;
 import store.item.exception.ItemNotFoundException;
@@ -74,7 +75,8 @@ public class OrderServiceImpl implements OrderService {
         int usage = Math.min(promotionItem.getStock(), buyAmount);
 
         if (canGetFreeIfAppend(buyAmount, promotionItem)
-            && appendOneListener.apply(promotionItem.getName(), EXACT_GET_PROMOTION)) {
+            && ExceptionFacade.process(() ->
+            appendOneListener.apply(promotionItem.getName(), EXACT_GET_PROMOTION))) {
             usage += EXACT_GET_PROMOTION;
         }
         return usage;
@@ -97,7 +99,8 @@ public class OrderServiceImpl implements OrderService {
 
     private void checkRegularPricePay(PromotionItem promotionItem, int remainingBuyAmount) {
         if (remainingBuyAmount > 0 || !promotionItem.canApplyAt(now())) {
-            if (!regularPriceListener.apply(promotionItem.getName(), remainingBuyAmount)) {
+            if (!ExceptionFacade.process(() ->
+                regularPriceListener.apply(promotionItem.getName(), remainingBuyAmount))) {
                 throw new OrderCanceledException();
             }
         }

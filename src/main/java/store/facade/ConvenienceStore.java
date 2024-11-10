@@ -1,9 +1,8 @@
-package store;
+package store.facade;
 
 import store.item.inventory.Inventory;
 import store.order.domain.Order;
-import store.presentation.processor.InputProcessor;
-import store.presentation.processor.OrderFacade;
+import store.order.exception.OrderCanceledException;
 import store.presentation.view.input.BuyMoreInputView;
 import store.presentation.view.output.OrderOutputView;
 import store.presentation.view.output.ProductsOutputView;
@@ -11,7 +10,6 @@ import store.presentation.view.output.WelcomeOutputView;
 
 public class ConvenienceStore {
 
-    private final InputProcessor inputProcessor;
     private final OrderFacade orderFacade;
     private final Inventory inventory;
 
@@ -20,9 +18,7 @@ public class ConvenienceStore {
     private final OrderOutputView orderOutputView = new OrderOutputView();
     private final BuyMoreInputView buyMoreInputView = new BuyMoreInputView();
 
-    public ConvenienceStore(InputProcessor inputProcessor, OrderFacade orderFacade,
-        Inventory inventory) {
-        this.inputProcessor = inputProcessor;
+    public ConvenienceStore(OrderFacade orderFacade, Inventory inventory) {
         this.orderFacade = orderFacade;
         this.inventory = inventory;
     }
@@ -31,9 +27,16 @@ public class ConvenienceStore {
         do {
             welcomeOutputView.print();
             productsOutputView.print(inventory);
+            orderHandlingCancelException();
+        }
+        while (ExceptionFacade.process(buyMoreInputView::read));
+    }
+
+    private void orderHandlingCancelException() {
+        try {
             Order order = orderFacade.process();
             orderOutputView.print(order);
+        } catch (OrderCanceledException exception) {
         }
-        while (inputProcessor.process(buyMoreInputView));
     }
 }

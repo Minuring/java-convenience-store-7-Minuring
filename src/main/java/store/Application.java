@@ -1,6 +1,7 @@
 package store;
 
 import store.config.AppConfig;
+import store.facade.ConvenienceStore;
 
 public class Application {
 

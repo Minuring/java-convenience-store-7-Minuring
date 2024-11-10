@@ -1,4 +1,4 @@
-package store.presentation.processor;
+package store.facade;
 
 import java.util.List;
 import store.discount.membership.MembershipImpl;
@@ -10,25 +10,22 @@ import store.presentation.view.input.ProductsInputView;
 
 public class OrderFacade {
 
-    private final InputProcessor inputProcessor;
     private final OrderService orderService;
     private final ProductsInputView productsInputView = new ProductsInputView();
     private final MembershipInputView membershipInputView = new MembershipInputView();
 
-    public OrderFacade(InputProcessor inputProcessor, OrderService orderService) {
-        this.inputProcessor = inputProcessor;
+    public OrderFacade(OrderService orderService) {
         this.orderService = orderService;
     }
 
     public Order process() {
-        List<BuyRequest> buyRequests = inputProcessor.process(productsInputView);
-        Order order = orderService.order(buyRequests);
-
-        Boolean applyMembership = inputProcessor.process(membershipInputView);
-        if (applyMembership) {
+        Order order = ExceptionFacade.process(() -> {
+            List<BuyRequest> buyRequests = productsInputView.read();
+            return orderService.order(buyRequests);
+        });
+        if (ExceptionFacade.process(membershipInputView::read)) {
             order.discountMembership(new MembershipImpl());
         }
-
         return order;
     }
 }

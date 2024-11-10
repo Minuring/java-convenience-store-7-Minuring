@@ -2,7 +2,7 @@ package store.item.exception;
 
 import static store.constant.Errors.NOT_ENOUGH_STOCK;
 
-public class NotEnoughStockException extends RuntimeException {
+public class NotEnoughStockException extends IllegalArgumentException {
 
     public NotEnoughStockException() {
         super(NOT_ENOUGH_STOCK.message());
