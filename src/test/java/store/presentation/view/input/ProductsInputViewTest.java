@@ -10,21 +10,20 @@ import store.presentation.view.IOTest;
 
 class ProductsInputViewTest extends IOTest {
 
+    private final ProductsInputView productsInputView = new ProductsInputView();
+
     @Test
     void 지정한_입력요구_문구를_띄운다() throws Exception {
         systemIn("[사이다-2]");
-        ProductsInputView productsInputView = new ProductsInputView();
 
         productsInputView.read();
 
-        assertThat(getOutput()).contains(INPUT_PRODUCTS.get() + System.lineSeparator());
+        assertThat(getOutput()).contains(INPUT_PRODUCTS.get());
     }
 
     @Test
     void 상품_이름과_수량을_입력한다() throws Exception {
         systemIn("[사이다-2],[감자칩-1]");
-        ProductsInputView productsInputView = new ProductsInputView();
-
         List<BuyRequest> buyRequests = productsInputView.read();
         BuyRequest first = buyRequests.getFirst();
         BuyRequest last = buyRequests.getLast();

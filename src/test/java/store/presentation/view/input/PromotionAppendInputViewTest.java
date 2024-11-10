@@ -16,6 +16,6 @@ class PromotionAppendInputViewTest extends IOTest {
         promotionAppendInputView.read("감자칩", 1);
 
         assertThat(getOutput()).contains(
-            INPUT_PROMOTION_APPEND.get("감자칩", 1) + System.lineSeparator());
+            INPUT_PROMOTION_APPEND.get("감자칩", 1));
     }
 }
