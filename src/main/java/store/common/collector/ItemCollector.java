@@ -20,17 +20,20 @@ public class ItemCollector extends FileContentCollector<Item> {
     @Override
     protected Item toInstance(String line, long sequence) {
         String[] split = line.trim().split(",");
-
         String name = split[0];
         int price = Integer.parseInt(split[1]);
         int quantity = Integer.parseInt(split[2]);
-
         String promotionName = split[3].trim();
+
+        return generateItem(name, price, quantity, promotionName);
+    }
+
+    private Item generateItem(String name, int price, int quantity, String promotionName) {
         if (promotionName.equals(PROMOTION_NOTHING)) {
             return new NormalItem(name, price, quantity);
         }
 
-        Promotion promotion = promotions.getByName(split[3]);
+        Promotion promotion = promotions.getByName(promotionName);
         return new PromotionItem(name, price, quantity, promotion);
     }
 }

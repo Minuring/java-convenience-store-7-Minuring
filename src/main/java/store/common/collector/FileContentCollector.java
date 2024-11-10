@@ -10,6 +10,7 @@ import store.constant.FilePath;
 public abstract class FileContentCollector<T> {
 
     private final FilePath filePath;
+    private long sequence = 0L;
 
     public FileContentCollector(FilePath filePath) {
         this.filePath = filePath;
@@ -25,17 +26,13 @@ public abstract class FileContentCollector<T> {
     }
 
     private List<T> executeCollect(BufferedReader bufferedReader) throws IOException {
-        long sequence = 0L;
         List<T> instances = new ArrayList<>();
-
         while (true) {
             String line = bufferedReader.readLine();
             if (line == null) {
                 break;
             }
-
-            T entity = toInstance(line, sequence++);
-            instances.add(entity);
+            instances.add(toInstance(line, sequence++));
         }
         return instances;
     }

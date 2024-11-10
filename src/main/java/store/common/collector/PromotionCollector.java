@@ -19,7 +19,6 @@ public class PromotionCollector extends FileContentCollector<Promotion> {
         int get = Integer.parseInt(split[2]);
         LocalDate start_date = LocalDate.parse(split[3]);
         LocalDate end_date = LocalDate.parse(split[4]);
-
         return new Promotion(name, buy, get, start_date, end_date);
     }
 }
