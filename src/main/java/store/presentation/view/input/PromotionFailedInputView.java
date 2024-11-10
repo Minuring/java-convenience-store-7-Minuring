@@ -2,11 +2,11 @@ package store.presentation.view.input;
 
 import static store.presentation.view.Message.INPUT_PROMOTION_FAILED;
 
-import store.order.service.RequiredConfirmListener;
+import store.order.service.ConfirmListener;
 import store.presentation.view.input.abstractview.BooleanInputView;
 
 public class PromotionFailedInputView extends BooleanInputView implements
-    RequiredConfirmListener<String, Integer> {
+    ConfirmListener<String, Integer> {
 
     @Override
     protected void printLabel(Object... args) {

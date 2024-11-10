@@ -17,12 +17,12 @@ import store.order.exception.OrderCanceledException;
 public class OrderServiceImpl implements OrderService {
 
     private final Inventory inventory;
-    private final RequiredConfirmListener<String, Integer> appendOneListener;
-    private final RequiredConfirmListener<String, Integer> regularPriceListener;
+    private final ConfirmListener<String, Integer> appendOneListener;
+    private final ConfirmListener<String, Integer> regularPriceListener;
 
     public OrderServiceImpl(Inventory inventory,
-        RequiredConfirmListener<String, Integer> appendOneListener,
-        RequiredConfirmListener<String, Integer> regularPriceListener) {
+        ConfirmListener<String, Integer> appendOneListener,
+        ConfirmListener<String, Integer> regularPriceListener) {
         this.inventory = inventory;
         this.appendOneListener = appendOneListener;
         this.regularPriceListener = regularPriceListener;

@@ -20,8 +20,8 @@ import store.order.exception.OrderCanceledException;
 
 class OrderServiceImplTest {
 
-    private final RequiredConfirmListener<String, Integer> yes = (s, i) -> true;
-    private final RequiredConfirmListener<String, Integer> no = (s, i) -> false;
+    private final ConfirmListener<String, Integer> yes = (s, i) -> true;
+    private final ConfirmListener<String, Integer> no = (s, i) -> false;
     private Inventory inventory;
 
     @BeforeEach

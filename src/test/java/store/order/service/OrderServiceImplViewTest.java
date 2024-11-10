@@ -16,11 +16,11 @@ import store.mock.ServiceTestInventory;
 public class OrderServiceImplViewTest {
 
     private String calledMethodNames = "";
-    private final RequiredConfirmListener<String, Integer> confirmAppendItem = (s, i) -> {
+    private final ConfirmListener<String, Integer> confirmAppendItem = (s, i) -> {
         calledMethodNames += "confirmAppendItem";
         return true;
     };
-    private final RequiredConfirmListener<String, Integer> confirmRegularPrice = (s, i) -> {
+    private final ConfirmListener<String, Integer> confirmRegularPrice = (s, i) -> {
         calledMethodNames += "confirmRegularPrice";
         return true;
     };
