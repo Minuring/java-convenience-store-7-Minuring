@@ -13,7 +13,7 @@ public class ProductsInputView extends InputView<List<BuyRequest>> {
 
     private static final String PRODUCTS_SEPARATOR = ",";
     private static final String NAME_AMOUNT_SEPARATOR = "-";
-    private static final String PATTERN_REGEX = "(\\[[가-힣a-zA-Z0-9]+[-]\\d+\\],?\\s?)+";
+    private static final String PATTERN_REGEX = "(\\[[가-힣a-zA-Z0-9]+[-]\\d+\\],?)+";
 
     @Override
     protected void printLabel(Object... args) {
