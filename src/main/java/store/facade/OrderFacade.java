@@ -1,6 +1,7 @@
 package store.facade;
 
 import java.util.List;
+import store.config.AppConfig;
 import store.discount.membership.MembershipImpl;
 import store.dto.BuyRequest;
 import store.order.domain.Order;
@@ -23,9 +24,14 @@ public class OrderFacade {
             List<BuyRequest> buyRequests = productsInputView.read();
             return orderService.order(buyRequests);
         });
-        if (ExceptionFacade.process(membershipInputView::read)) {
-            order.applyMembership(new MembershipImpl());
-        }
+
+        processApplyingMembership(order);
         return order;
+    }
+
+    private void processApplyingMembership(Order order) {
+        if (ExceptionFacade.process(membershipInputView::read)) {
+            order.applyMembership(AppConfig.MEMBERSHIP);
+        }
     }
 }

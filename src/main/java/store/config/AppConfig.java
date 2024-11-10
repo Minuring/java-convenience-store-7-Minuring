@@ -1,5 +1,7 @@
 package store.config;
 
+import store.discount.membership.Membership;
+import store.discount.membership.MembershipImpl;
 import store.facade.ConvenienceStore;
 import store.facade.OrderFacade;
 import store.item.inventory.Inventory;
@@ -22,6 +24,8 @@ public class AppConfig {
     public static final OrderFacade ORDER_FACADE = new OrderFacade(ORDER_SERVICE);
     public static final ConvenienceStore CONVENIENCE_STORE = new ConvenienceStore(ORDER_FACADE,
         INVENTORY);
+
+    public static final Membership MEMBERSHIP = new MembershipImpl();
 
     private AppConfig() {
     }
