@@ -19,7 +19,7 @@ class StoreInitializerTest {
         Inventory inventory = new InventoryImpl();
         StoreInitializer.initialize(promotions, inventory);
 
-        assertThat(inventory.getAllItems()).hasSize(16);
+        assertThat(inventory.getAllItems()).hasSize(18);
         assertDoesNotThrow(() -> promotions.getByName("탄산2+1"),
             Errors.NOT_FOUND_PROMOTION::message);
     }
