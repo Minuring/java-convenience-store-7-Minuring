@@ -98,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void checkRegularPricePay(PromotionItem promotionItem, int remainingBuyAmount) {
-        if (remainingBuyAmount > 0 || !promotionItem.canApplyAt(now())) {
+        if (remainingBuyAmount > 0 || promotionItem.canApplyAt(now())) {
             if (!ExceptionFacade.process(() ->
                 regularPriceListener.apply(promotionItem.getName(), remainingBuyAmount))) {
                 throw new OrderCanceledException();

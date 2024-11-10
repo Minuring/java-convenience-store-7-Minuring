@@ -1,5 +1,9 @@
 package store.facade;
 
+import java.io.IOException;
+import store.config.StoreInitializer;
+import store.discount.promotion.domain.Promotions;
+import store.discount.promotion.domain.PromotionsImpl;
 import store.item.inventory.Inventory;
 import store.order.domain.Order;
 import store.order.exception.OrderCanceledException;
@@ -21,6 +25,15 @@ public class ConvenienceStore {
     public ConvenienceStore(OrderFacade orderFacade, Inventory inventory) {
         this.orderFacade = orderFacade;
         this.inventory = inventory;
+    }
+
+    public void setUp() {
+        Promotions PROMOTIONS = new PromotionsImpl();
+        try {
+            StoreInitializer.initialize(PROMOTIONS, inventory);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void enter() {
