@@ -2,6 +2,7 @@ package store.presentation.view.input;
 
 import static store.presentation.view.Message.INPUT_PRODUCTS;
 import static store.presentation.view.ViewErrors.INVALID_FORMAT;
+import static store.presentation.view.ViewErrors.INVALID_INPUT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +44,17 @@ public class ProductsInputView extends InputView<List<BuyRequest>> {
 
         String[] split = inputProduct.split(NAME_AMOUNT_SEPARATOR);
         String productName = split[0];
-        int quantity = Integer.parseInt(split[1]);
+        int quantity = parseQuantity(split);
 
         return new BuyRequest(productName, quantity);
+    }
+
+    private static int parseQuantity(String[] split) {
+        int quantity = Integer.parseInt(split[1]);
+        if (quantity <= 0) {
+            throw new IllegalArgumentException(INVALID_INPUT.message());
+        }
+        return quantity;
     }
 
     protected void validateFormat(String input) {
