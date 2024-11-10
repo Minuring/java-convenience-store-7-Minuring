@@ -2,10 +2,10 @@ package store.order.service;
 
 import static camp.nextstep.edu.missionutils.DateTimes.now;
 import static store.constant.ConstantNumbers.EXACT_GET_PROMOTION;
+import static store.facade.ExceptionFacade.process;
 
 import java.util.List;
 import store.dto.BuyRequest;
-import store.facade.ExceptionFacade;
 import store.item.domain.NormalItem;
 import store.item.domain.PromotionItem;
 import store.item.exception.ItemNotFoundException;
@@ -76,10 +76,10 @@ public class OrderServiceImpl implements OrderService {
 
     private int determinePromotionUsage(int buyAmount, PromotionItem promotionItem) {
         int usage = Math.min(promotionItem.getStock(), buyAmount);
+        String itemName = promotionItem.getName();
 
         if (canGetFreeIfAppend(buyAmount, promotionItem)
-            && ExceptionFacade.process(() ->
-            appendOneListener.apply(promotionItem.getName(), EXACT_GET_PROMOTION.get()))) {
+            && process(() -> appendOneListener.apply(itemName, EXACT_GET_PROMOTION.get()))) {
             usage += EXACT_GET_PROMOTION.get();
         }
         return usage;
@@ -106,10 +106,10 @@ public class OrderServiceImpl implements OrderService {
             return;
         }
 
-        if (!ExceptionFacade.process(() ->
-            regularPriceListener.apply(itemName, remainingBuyAmount))) {
-            throw new OrderCanceledException();
+        if (process(() -> regularPriceListener.apply(itemName, remainingBuyAmount))) {
+            return;
         }
+        throw new OrderCanceledException();
     }
 
     private int getFreeCount(PromotionItem promotionItem, int promotionUsage) {
@@ -126,7 +126,7 @@ public class OrderServiceImpl implements OrderService {
             inventory.findNormalItemByName(name).map(NormalItem::getPrice).orElse(0)
         );
 
-        return new OrderItem(name, price);
+        return OrderItem.ready(name, price);
     }
 
     private void throwIfItemNotFound(List<BuyRequest> buyRequests) {

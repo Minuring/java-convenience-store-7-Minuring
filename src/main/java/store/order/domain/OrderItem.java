@@ -8,11 +8,6 @@ public class OrderItem {
     private int promotionApplied = 0;
     private int free = 0;
 
-    public OrderItem(String name, int price) {
-        this.name = name;
-        this.price = price;
-    }
-
     public OrderItem(String name, int price, int quantity, int free) {
         this.name = name;
         this.price = price;
@@ -63,5 +58,9 @@ public class OrderItem {
 
     public int getPromotionDiscountPrice() {
         return price * free;
+    }
+
+    public static OrderItem ready(String name, int price) {
+        return new OrderItem(name, price, 0, 0);
     }
 }
