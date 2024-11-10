@@ -46,19 +46,11 @@ class PromotionTest {
         assertDoesNotThrow(() -> new Promotion("ABCD", 2, 1, LocalDate.now(), LocalDate.now()));
     }
 
-    @DisplayName("프로모션의 이름이 4자 미만이면 예외가 발생한다.")
-    @Test
-    void 프로모션_이름_4자_미만() throws Exception {
-        assertThatThrownBy(() -> new Promotion("ABC", 2, 1, LocalDate.now(), LocalDate.now()))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage(LENGTH_PROMOTION_NAME.message());
-    }
-
-    @DisplayName("프로모션의 이름이 12자를 초과하면 예외가 발생한다.")
-    @Test
-    void 프로모션_이름_12자_초과() throws Exception {
-        assertThatThrownBy(
-            () -> new Promotion("ABCDEFGHIJKLM", 2, 1, LocalDate.now(), LocalDate.now()))
+    @DisplayName("프로모션의 이름이 4자 미만이거나 12자 초과이면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"ABC", "ABCDEABCDEABC"})
+    void 범위_밖의_프로모션_이름(String name) throws Exception {
+        assertThatThrownBy(() -> new Promotion(name, 2, 1, LocalDate.now(), LocalDate.now()))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage(LENGTH_PROMOTION_NAME.message());
     }
@@ -70,23 +62,16 @@ class PromotionTest {
         assertDoesNotThrow(() -> new Promotion("ABCD", buy, 1, LocalDate.now(), LocalDate.now()));
     }
 
-    @DisplayName("프로모션의 Buy가 1 미만이면 예외가 발생한다.")
-    @Test
-    void 프로모션_Buy_1미만() throws Exception {
-        assertThatThrownBy(() -> new Promotion("ABCD", 0, 1, LocalDate.now(), LocalDate.now()))
+    @DisplayName("프로모션의 Buy가 1미만 혹은 4초과이면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {0, 5})
+    void 프로모션_Buy_1미만_4초과(int buy) throws Exception {
+        assertThatThrownBy(() -> new Promotion("ABCD", buy, 1, LocalDate.now(), LocalDate.now()))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage(LENGTH_PROMOTION_BUY.message());
     }
 
-    @DisplayName("프로모션의 Buy가 4를 초과하면 예외가 발생한다.")
-    @Test
-    void 프로모션_Buy_4초과() throws Exception {
-        assertThatThrownBy(() -> new Promotion("ABCD", 5, 1, LocalDate.now(), LocalDate.now()))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage(LENGTH_PROMOTION_BUY.message());
-    }
-
-    @DisplayName("프로모션의 Get이 1이면 성공한다.")
+    @DisplayName("프로모션의 Get은 1이어야한다.")
     @Test
     void 프로모션_Get_반드시_1() throws Exception {
         assertDoesNotThrow(() -> new Promotion("ABCD", 2, 1, LocalDate.now(), LocalDate.now()));
