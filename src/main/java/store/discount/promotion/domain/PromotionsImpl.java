@@ -15,11 +15,9 @@ public class PromotionsImpl implements Promotions {
     }
 
     public Promotion getByName(String name) {
-        for (Promotion promotion : promotions) {
-            if (promotion.getName().equals(name)) {
-                return promotion;
-            }
-        }
-        throw new PromotionNotFoundException(NOT_FOUND_PROMOTION.message());
+        return promotions.stream()
+            .filter(promotion -> promotion.getName().equals(name))
+            .findFirst()
+            .orElseThrow(() -> new PromotionNotFoundException(NOT_FOUND_PROMOTION.message()));
     }
 }
