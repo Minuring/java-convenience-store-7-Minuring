@@ -13,7 +13,7 @@ import store.dto.BuyRequest;
 import store.item.inventory.Inventory;
 import store.mock.ServiceTestInventory;
 
-public class OrderServiceImplViewTest {
+public class OrderServiceImplConfirmTest {
 
     private String calledMethodNames = "";
     private final ConfirmListener<String, Integer> confirmAppendItem = (s, i) -> {
