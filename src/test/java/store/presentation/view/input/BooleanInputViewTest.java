@@ -2,7 +2,7 @@ package store.presentation.view.input;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static store.presentation.view.ViewErrors.INVALID_FORMAT;
+import static store.presentation.view.ViewErrors.INVALID_INPUT;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -46,6 +46,6 @@ public class BooleanInputViewTest extends IOTest {
 
         assertThatThrownBy(mockView::read)
             .isInstanceOf(IllegalArgumentException.class)
-            .hasMessage(INVALID_FORMAT.message());
+            .hasMessage(INVALID_INPUT.message());
     }
 }
