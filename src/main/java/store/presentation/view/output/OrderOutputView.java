@@ -6,8 +6,8 @@ import store.presentation.view.output.abstractview.ArgumentOutputView;
 public class OrderOutputView extends ArgumentOutputView<Order> {
 
     protected static final String HEADER = "===========W 편의점=============";
-    protected static final String PRODUCTS_HEADER = String.format("%-15s %-5s %-5s", "상품명", "수량",
-        "금액");
+    protected static final String PRODUCTS_HEADER =
+        String.format("%-15s %-5s %-5s", "상품명", "수량", "금액");
     protected static final String PRODUCT = "%-15s %-5d %-,5d";
     protected static final String PROMOTION_HEADER = "===========증\t정=============";
     protected static final String PROMOTION = "%-15s %d";
@@ -37,7 +37,7 @@ public class OrderOutputView extends ArgumentOutputView<Order> {
             String name = item.getName();
             int quantity = item.getQuantity();
             int price = item.getPrice();
-            System.out.println(String.format(PRODUCT, name, quantity, price * quantity));
+            System.out.printf(PRODUCT + "%n", name, quantity, price * quantity);
         });
     }
 
@@ -51,9 +51,10 @@ public class OrderOutputView extends ArgumentOutputView<Order> {
 
     private void printStatistics(Order order) {
         System.out.println(SEPARATOR);
-        System.out.println(String.format(TOTAL_PRICE, "총구매액", order.getTotalQuantity(), order.getTotalPrice()));
-        System.out.println(String.format(PROMOTION_DISCOUNT, "행사할인", order.getTotalDiscount()));
-        System.out.println(String.format(MEMBERSHIP_DISCOUNT, "멤버십할인", order.getMembershipDiscount()));
-        System.out.println(String.format(PAY, "내실돈", order.getActualPrice()));
+        System.out.printf(TOTAL_PRICE + "%n", "총구매액",
+            order.getTotalQuantity(), order.getTotalPrice());
+        System.out.printf(PROMOTION_DISCOUNT + "%n", "행사할인", order.getTotalDiscount());
+        System.out.printf(MEMBERSHIP_DISCOUNT + "%n", "멤버십할인", order.getMembershipDiscount());
+        System.out.printf(PAY + "%n", "내실돈", order.getActualPrice());
     }
 }
