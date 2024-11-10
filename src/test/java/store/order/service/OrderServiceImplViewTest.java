@@ -72,7 +72,7 @@ public class OrderServiceImplViewTest {
 
     @ParameterizedTest
     @MethodSource("provideBuysRegularPriceInStock")
-    void 프로모션단위와_맞아떨어지지_않으면_정가결제_확인을_받는다(BuyRequest buyRequest) throws Exception {
+    void 프로모션단위를_넘어서면_정가결제_확인을_받는다(BuyRequest buyRequest) throws Exception {
         orderService.order(List.of(buyRequest));
         assertThat(calledMethodNames).contains("confirmRegularPrice");
     }
@@ -80,16 +80,15 @@ public class OrderServiceImplViewTest {
     private static Stream<Arguments> provideBuysRegularPriceInStock() {
         return Stream.of(
             Arguments.of(new BuyRequest("itemA", 11)),
-            Arguments.of(new BuyRequest("itemB", 7)),
             Arguments.of(new BuyRequest("itemB", 10)),
             Arguments.of(new BuyRequest("itemB", 11))
         );
     }
 
     @Test
-    void 프로모션기간이_종료되었으면_증정수량을_만족할지라도_정가결제_확인을_받는다() throws Exception {
+    void 프로모션기간이_종료되었으면_정가결제_확인을_받지않는다() throws Exception {
         orderService.order(List.of(new BuyRequest("itemC", 1)));
-        assertThat(calledMethodNames).contains("confirmRegularPrice");
+        assertThat(calledMethodNames).doesNotContain("confirmRegularPrice");
     }
 
     @Test

@@ -65,7 +65,7 @@ class OrderServiceImplTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideBuysAppendNo")
+    @MethodSource("provideBuysAppendNoRegularPriceOK")
     void 프로모션_적용가능할때_수량만큼_가져오지_않기로하고_정가결제하기로하면_정가결제한다(BuyRequest buyRequest,
         int expectTotalPrice, int expectTotalDiscount) {
         OrderService orderService = new OrderServiceImpl(inventory, no, yes);
@@ -74,6 +74,15 @@ class OrderServiceImplTest {
 
         assertThat(order.getTotalPrice()).isEqualTo(expectTotalPrice);
         assertThat(order.getTotalDiscount()).isEqualTo(expectTotalDiscount);
+    }
+
+    private static Stream<Arguments> provideBuysAppendNoRegularPriceOK() {
+        return Stream.of(
+            Arguments.of(new BuyRequest("itemA", 1), 1000, 0),
+            Arguments.of(new BuyRequest("itemA", 9), 9000, 4000),
+            Arguments.of(new BuyRequest("itemB", 2), 3000, 0),
+            Arguments.of(new BuyRequest("itemB", 5), 7500, 1500),
+            Arguments.of(new BuyRequest("itemB", 8), 12000, 3000));
     }
 
     @ParameterizedTest
@@ -91,10 +100,7 @@ class OrderServiceImplTest {
 
     private static Stream<Arguments> provideBuysAppendNo() {
         return Stream.of(
-            Arguments.of(new BuyRequest("itemA", 1), 1000, 0),
-            Arguments.of(new BuyRequest("itemA", 9), 9000, 4000),
-            Arguments.of(new BuyRequest("itemB", 2), 3000, 0),
-            Arguments.of(new BuyRequest("itemB", 5), 7500, 1500),
-            Arguments.of(new BuyRequest("itemB", 8), 12000, 3000));
+            Arguments.of(new BuyRequest("itemA", 11)),
+            Arguments.of(new BuyRequest("itemB", 11)));
     }
 }

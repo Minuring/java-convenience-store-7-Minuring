@@ -64,9 +64,11 @@ public class OrderServiceImpl implements OrderService {
     private int takeoutPromotionStock(BuyRequest buyRequest, PromotionItem item) {
         int promotionUsage = determinePromotionUsage(buyRequest.amount(), item);
         int free = item.countFreeOnTake(promotionUsage);
-        int take = item.countTakeToGetFree(free);
-        checkRegularPricePay(item, buyRequest.amount() - take);
 
+        checkRegularPricePay(
+            buyRequest.amount() - item.countTakeToGetFree(free),
+            item.getStock() - promotionUsage,
+            buyRequest.itemName());
         item.removeStock(promotionUsage);
         return promotionUsage;
     }
@@ -97,12 +99,15 @@ public class OrderServiceImpl implements OrderService {
             });
     }
 
-    private void checkRegularPricePay(PromotionItem promotionItem, int remainingBuyAmount) {
-        if (remainingBuyAmount > 0 || promotionItem.canApplyAt(now())) {
-            if (!ExceptionFacade.process(() ->
-                regularPriceListener.apply(promotionItem.getName(), remainingBuyAmount))) {
-                throw new OrderCanceledException();
-            }
+    private void checkRegularPricePay(int remainingBuyAmount, int remainingPromotionStock,
+        String itemName) {
+        if (remainingBuyAmount <= remainingPromotionStock) {
+            return;
+        }
+
+        if (!ExceptionFacade.process(() ->
+            regularPriceListener.apply(itemName, remainingBuyAmount))) {
+            throw new OrderCanceledException();
         }
     }
 
