@@ -1,5 +1,8 @@
 package store.item.domain;
 
+import static store.presentation.view.Message.PRODUCT;
+import static store.presentation.view.Message.PRODUCT_NO_STOCK;
+
 import java.util.Objects;
 import store.item.exception.NotEnoughStockException;
 
@@ -25,9 +28,9 @@ public abstract class Item implements Comparable<Item> {
     @Override
     public String toString() {
         if (stock > 0) {
-            return String.format("%s %,d원 %d개", name, price, stock);
+            return PRODUCT.get(name, price, stock);
         }
-        return String.format("%s %,d원 재고 없음", name, price);
+        return PRODUCT_NO_STOCK.get(name, price);
     }
 
     public String getName() {

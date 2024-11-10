@@ -1,6 +1,7 @@
 package store.presentation.view.output;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static store.constant.Errors.NOT_FOUND_ITEM;
 
 import org.junit.jupiter.api.Test;
 import store.item.exception.ItemNotFoundException;
@@ -13,6 +14,6 @@ class ExceptionOutputViewTest extends IOTest {
     @Test
     void ItemNotFoundException() throws Exception {
         view.printBody(new ItemNotFoundException());
-        assertThat(getOutput()).isEqualTo("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요." + LINE_SEPARATOR);
+        assertThat(getOutput()).contains(NOT_FOUND_ITEM.message());
     }
 }

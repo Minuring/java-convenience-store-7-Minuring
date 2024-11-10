@@ -14,6 +14,6 @@ class WelcomeOutputViewTest extends IOTest {
 
         welcomeOutputView.print();
 
-        assertThat(getOutput()).isEqualTo("안녕하세요. W편의점입니다." + System.lineSeparator());
+        assertThat(getOutput()).contains(WELCOME.get());
     }
 }

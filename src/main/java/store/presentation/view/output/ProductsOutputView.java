@@ -19,6 +19,6 @@ public class ProductsOutputView extends ArgumentOutputView<Inventory> {
         List<Item> allItems = target.getAllItems();
         allItems.stream()
             .sorted()
-            .forEach(item -> System.out.println("- " + item));
+            .forEach(System.out::println);
     }
 }
