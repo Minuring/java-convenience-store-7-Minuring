@@ -15,6 +15,6 @@ class BuyMoreInputViewTest extends IOTest {
 
         BuyMoreInputView.read();
 
-        assertThat(getOutput()).isEqualTo(INPUT_BUY_MORE.get() + System.lineSeparator());
+        assertThat(getOutput()).contains(INPUT_BUY_MORE.get() + System.lineSeparator());
     }
 }

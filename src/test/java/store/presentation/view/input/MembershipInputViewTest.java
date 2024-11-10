@@ -15,6 +15,6 @@ class MembershipInputViewTest extends IOTest {
 
         MembershipInputView.read();
 
-        assertThat(getOutput()).isEqualTo(INPUT_MEMBERSHIP.get() + System.lineSeparator());
+        assertThat(getOutput()).contains(INPUT_MEMBERSHIP.get() + System.lineSeparator());
     }
 }

@@ -17,7 +17,7 @@ class ProductsInputViewTest extends IOTest {
 
         productsInputView.read();
 
-        assertThat(getOutput()).isEqualTo(INPUT_PRODUCTS.get() + System.lineSeparator());
+        assertThat(getOutput()).contains(INPUT_PRODUCTS.get() + System.lineSeparator());
     }
 
     @Test

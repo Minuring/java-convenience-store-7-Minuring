@@ -21,9 +21,4 @@ public class ProductsOutputView extends ArgumentOutputView<Inventory> {
             .sorted()
             .forEach(item -> System.out.println("- " + item));
     }
-
-    @Override
-    protected void printFooter() {
-        System.out.print(System.lineSeparator());
-    }
 }

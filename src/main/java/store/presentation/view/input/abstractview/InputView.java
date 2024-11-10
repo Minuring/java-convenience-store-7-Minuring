@@ -5,6 +5,7 @@ import camp.nextstep.edu.missionutils.Console;
 public abstract class InputView<T> {
 
     public T read(Object... args) throws IllegalArgumentException {
+        System.out.print(System.lineSeparator());
         printLabel(args);
         String input = readInput();
         return convert(input);
