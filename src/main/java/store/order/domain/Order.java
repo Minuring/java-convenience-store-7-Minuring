@@ -48,12 +48,7 @@ public class Order {
         LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
         orderItems.stream()
             .filter(OrderItem::hasFree)
-            .forEach(orderItem -> {
-                    String name = orderItem.getName();
-                    int free = orderItem.getFree();
-                    map.put(name, free);
-                }
-            );
+            .forEach(orderItem -> map.put(orderItem.getName(), orderItem.getFree()));
 
         return map;
     }
