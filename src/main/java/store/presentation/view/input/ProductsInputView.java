@@ -5,6 +5,7 @@ import static store.presentation.view.ViewErrors.INVALID_FORMAT;
 import static store.presentation.view.ViewErrors.INVALID_INPUT;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import store.dto.BuyRequest;
 import store.presentation.view.input.abstractview.InputView;
@@ -31,10 +32,9 @@ public class ProductsInputView extends InputView<List<BuyRequest>> {
         List<BuyRequest> buyRequests = new ArrayList<>();
 
         String[] products = input.split(PRODUCTS_SEPARATOR);
-        for (String product : products) {
-            BuyRequest buyRequest = mapToBuyRequest(product);
-            buyRequests.add(buyRequest);
-        }
+        Arrays.stream(products)
+            .map(this::mapToBuyRequest)
+            .forEach(buyRequests::add);
 
         return buyRequests;
     }
