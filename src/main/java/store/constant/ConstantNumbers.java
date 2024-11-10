@@ -10,4 +10,6 @@ public class ConstantNumbers {
     public static final int MIN_BUY_PROMOTION = 1;
     public static final int MAX_BUY_PROMOTION = 4;
     public static final int EXACT_GET_PROMOTION = 1;
+    public static final int PERCENT_MEMBERSHIP = 30;
+    public static final int MAX_MEMBERSHIP = 8000;
 }

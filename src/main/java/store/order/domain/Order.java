@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import store.discount.membership.Membership;
 
 public class Order {
 
@@ -12,6 +13,10 @@ public class Order {
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
+    }
+
+    public void discountMembership(Membership membership) {
+        membershipDiscount = membership.discount(getActualPrice());
     }
 
     public int getTotalQuantity() {
