@@ -5,6 +5,7 @@ public class OrderItem {
     private final String name;
     private final int price;
     private int quantity = 0;
+    private int promotionApplied = 0;
     private int free = 0;
 
     public OrderItem(String name, int price) {
@@ -17,6 +18,10 @@ public class OrderItem {
         this.price = price;
         this.quantity = quantity;
         this.free = free;
+    }
+
+    public void setPromotionApplied(int promotionApplied) {
+        this.promotionApplied = promotionApplied;
     }
 
     public void setFree(int free) {
@@ -33,6 +38,11 @@ public class OrderItem {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getRawPayAmount() {
+        int promotionNotApplied = quantity - promotionApplied;
+        return promotionNotApplied * price;
     }
 
     public int getFree() {

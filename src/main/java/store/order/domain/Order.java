@@ -15,8 +15,9 @@ public class Order {
         orderItems.add(orderItem);
     }
 
-    public void discountMembership(Membership membership) {
-        membershipDiscount = membership.discount(getActualPrice());
+    public void applyMembership(Membership membership) {
+        int totalRawPayAmount = orderItems.stream().mapToInt(OrderItem::getRawPayAmount).sum();
+        this.membershipDiscount = membership.discount(totalRawPayAmount);
     }
 
     public int getTotalQuantity() {
@@ -48,11 +49,11 @@ public class Order {
         orderItems.stream()
             .filter(OrderItem::hasFree)
             .forEach(orderItem -> {
-                String name = orderItem.getName();
-                int free = orderItem.getFree();
-                map.put(name, free);
-            }
-        );
+                    String name = orderItem.getName();
+                    int free = orderItem.getFree();
+                    map.put(name, free);
+                }
+            );
 
         return map;
     }

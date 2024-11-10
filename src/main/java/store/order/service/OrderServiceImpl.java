@@ -57,6 +57,7 @@ public class OrderServiceImpl implements OrderService {
                 int promotionUsage = takeoutPromotionStock(buyRequest, item);
                 int freeCount = getFreeCount(item, promotionUsage);
                 orderItem.addQuantity(promotionUsage);
+                orderItem.setPromotionApplied(item.countTakeToGetFree(freeCount));
                 orderItem.setFree(freeCount);
             });
     }

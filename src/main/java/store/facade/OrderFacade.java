@@ -24,7 +24,7 @@ public class OrderFacade {
             return orderService.order(buyRequests);
         });
         if (ExceptionFacade.process(membershipInputView::read)) {
-            order.discountMembership(new MembershipImpl());
+            order.applyMembership(new MembershipImpl());
         }
         return order;
     }
