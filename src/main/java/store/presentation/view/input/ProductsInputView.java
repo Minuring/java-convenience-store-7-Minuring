@@ -1,6 +1,7 @@
 package store.presentation.view.input;
 
 import static store.presentation.view.Message.INPUT_PRODUCTS;
+import static store.presentation.view.ViewErrors.DUPLICATED_ITEMS;
 import static store.presentation.view.ViewErrors.INVALID_FORMAT;
 import static store.presentation.view.ViewErrors.INVALID_INPUT;
 
@@ -36,7 +37,16 @@ public class ProductsInputView extends InputView<List<BuyRequest>> {
             .map(this::mapToBuyRequest)
             .forEach(buyRequests::add);
 
+        validateItemDuplicated(buyRequests);
         return buyRequests;
+    }
+
+    private static void validateItemDuplicated(List<BuyRequest> buyRequests) {
+        long distinctCount = buyRequests.stream().map(BuyRequest::itemName).distinct().count();
+
+        if (distinctCount != buyRequests.size()) {
+            throw new IllegalArgumentException(DUPLICATED_ITEMS.message());
+        }
     }
 
     private BuyRequest mapToBuyRequest(String inputProduct) {
