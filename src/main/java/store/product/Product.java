@@ -19,6 +19,18 @@ public class Product {
         this.promotion = Optional.ofNullable(promotion);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isPromotion() {
+        return promotion.isPresent();
+    }
+
     public static Product of(String name, int price, int stock) {
         return new Product(name, price, stock, null);
     }
