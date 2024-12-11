@@ -68,13 +68,15 @@ public class Store {
                 remainingQuantity -= promotionUsage;
             }
         }
+        System.out.println("remainingQuantity = " + remainingQuantity);
         takeNormalStock(name, remainingQuantity);
     }
 
     private int takePromotionStock(String name, int remainingQuantity) {
         Product product = products.getPromotionProductByName(name);
-        product.takeStock(remainingQuantity);
-        return product.getStock();
+        int usage = Math.min(remainingQuantity, product.getStock());
+        product.takeStock(usage);
+        return usage;
     }
 
     private void takeNormalStock(String name, int remainingQuantity) {
