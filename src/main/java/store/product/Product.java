@@ -7,7 +7,7 @@ public class Product {
 
     private final String name;
     private final int price;
-    private final int stock;
+    private int stock;
     private final Optional<Promotion> promotion;
 
     private Product(String name, int price, int stock, Promotion promotion) {
@@ -29,6 +29,13 @@ public class Product {
 
     public int getStock() {
         return stock;
+    }
+
+    public void takeStock(int amount) {
+        if (amount > stock) {
+            throw new NotEnoughStockException();
+        }
+        this.stock -= amount;
     }
 
     public boolean isPromotion() {
