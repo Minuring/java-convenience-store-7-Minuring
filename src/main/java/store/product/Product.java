@@ -35,6 +35,10 @@ public class Product {
         return promotion.isPresent();
     }
 
+    public Optional<Promotion> getPromotion() {
+        return promotion;
+    }
+
     public static Product of(String name, int price, int stock) {
         return new Product(name, price, stock, null);
     }

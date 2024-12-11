@@ -5,7 +5,27 @@ import java.util.List;
 
 public class OrderCart {
 
-    public record OrderProduct(String name, int quantity) {
+    public static class OrderProduct {
+
+        private String name;
+        private int quantity;
+
+        public OrderProduct(String name, int quantity) {
+            this.name = name;
+            this.quantity = quantity;
+        }
+
+        public String name() {
+            return name;
+        }
+
+        public int quantity() {
+            return quantity;
+        }
+
+        public void increaseQuantity() {
+            this.quantity += 1;
+        }
     }
 
     private final List<OrderProduct> orderProducts = new ArrayList<>();
