@@ -7,23 +7,53 @@ import store.loader.PromotionsLoader;
 import store.order.OrderCart;
 import store.order.OrderCart.OrderProduct;
 import store.order.OrderSimulator;
+import store.order.Receipt;
 import store.product.Product;
 import store.promotion.Promotion;
 import store.view.AddOneInputView;
+import store.view.NotAppliedPartlyInputView;
 import store.view.OrderInputView;
 import store.view.OutputView;
 
 public class Application {
+
     public static void main(String[] args) {
         Store store = createStore();
         OrderSimulator simulator = store.getSimulator();
 
-        OrderCart cart = acceptOrderInput(simulator);
-        simulateAddOneAndChangeQuantity(cart, simulator);
+        while (true) {
+            OutputView.printProducts(store.getProducts());
+
+            OrderCart cart = acceptOrderInput(simulator);
+            List<OrderProduct> orderProducts = cart.getProducts();
+
+            addOneIfPromotionApplicable(orderProducts, simulator);
+            if (checkPromotionNotApplicablePartly(orderProducts, simulator)) {
+                Receipt receipt = store.order(cart);
+                OutputView.printReceipt(receipt);
+            }
+
+        }
     }
 
-    private static void simulateAddOneAndChangeQuantity(OrderCart cart, OrderSimulator simulator) {
-        List<OrderProduct> orderProducts = cart.getProducts();
+    private static boolean checkPromotionNotApplicablePartly(
+        List<OrderProduct> orderProducts,
+        OrderSimulator simulator) {
+        for (OrderProduct orderProduct : orderProducts) {
+            int partlyNotApplicable = simulator.calculateNotApplicablePromotionPartly(orderProduct);
+            if (partlyNotApplicable > 0) {
+                boolean confirmed = new NotAppliedPartlyInputView()
+                    .readUntilSuccess(orderProduct.name(), partlyNotApplicable);
+                if (!confirmed) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static void addOneIfPromotionApplicable(List<OrderProduct> orderProducts,
+        OrderSimulator simulator) {
         for (OrderProduct orderProduct : orderProducts) {
             if (simulator.canGetFreeIfAddOne(orderProduct)) {
                 boolean confirmed = new AddOneInputView().readUntilSuccess(orderProduct.name(), 1);

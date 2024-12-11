@@ -54,6 +54,12 @@ public class Product {
         return new Product(name, price, stock, promotion);
     }
 
+    @Override
+    public String toString() {
+        return String.format("- %s %,d원 %d개 %s", name, price, stock,
+            promotion.map(Promotion::getName).orElse(""));
+    }
+
     private void validatePrice(int price) {
         if (price <= 0) {
             throw new InvalidPriceException();

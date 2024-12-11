@@ -3,11 +3,19 @@ package store.view;
 import java.util.List;
 import store.order.Receipt;
 import store.order.Receipt.PurchasedProduct;
+import store.product.Products;
 
 public class OutputView {
 
     public static void printErrorMessage(String message) {
         System.out.println("[ERROR] " + message);
+    }
+
+    public static void printProducts(Products products) {
+        System.out.println("안녕하세요. W 편의점입니다.");
+        System.out.println("현재 보유하고 있는 상품입니다.");
+        System.out.println();
+        System.out.println(products);
     }
 
     public static void printReceipt(Receipt receipt) {
@@ -30,18 +38,3 @@ public class OutputView {
         System.out.printf("내실돈\t%,d", receipt.getActualPay());
     }
 }
-
-/*
-구매 상품 내역 , 증정 상품 내역 , 금액 정보를 출력한다.
-=W 편의점 ==: ニ ニ ニ ニ ニ ニ ニ ニ ニ
-상품명 수량 금액
-콜라 3 3,000
-에너지바 5 10,000
-ニ ニ ニ ニ ニ ニ == 증 정=
-콜라 1
-ニ ニ ニ ニ ニ
-총구매액 8 13,000
-행사할인 -1,000
-멤버십할인 -3,000
-내실돈 9,000
- */

@@ -23,8 +23,8 @@ public class Promotion {
         return new Promotion(name, buy, get, startDate, endDate);
     }
 
-    public int countFree(int buy) {
-        return buy / (this.buy + get);
+    public String getName() {
+        return name;
     }
 
     public int countFreeWithStock(int buyAmount, int stock) {

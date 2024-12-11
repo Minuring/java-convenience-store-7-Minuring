@@ -47,4 +47,10 @@ public class Products {
     public int countProducts() {
         return products.size();
     }
+
+    @Override
+    public String toString() {
+        List<String> productInfos = products.stream().map(Product::toString).toList();
+        return String.join("\n", productInfos);
+    }
 }
