@@ -23,6 +23,11 @@ public class Promotion {
         return new Promotion(name, buy, get, startDate, endDate);
     }
 
+    public int countFree(int buyAmount, int stock) {
+        int unit = buy + get;
+        return Math.min(buyAmount / unit, stock / unit);
+    }
+
     public boolean hasName(String name) {
         return this.name.equals(name);
     }

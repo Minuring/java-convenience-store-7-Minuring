@@ -1,11 +1,13 @@
 package store.promotion;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class PromotionTest {
@@ -27,5 +29,18 @@ class PromotionTest {
     void createPromotionBuyLessThanOne(int buy) {
         assertThatThrownBy(() -> Promotion.of("A", buy, 1, mockDate1, mockDate2))
             .isInstanceOf(UnsupportedPromotionGetException.class);
+    }
+
+    @DisplayName("구매수량과 재고수량을 고려해 증정받을 수 있는 상품의 개수 계산")
+    @ParameterizedTest
+    @CsvSource({
+        "1,10,0", "2,10,0", "3,10,1",
+        "3,0,0", "3,2,0", "3,3,1",
+        "9,10,3", "10,10,3", "11,10,3", "12,10,3"
+    })
+    void countFree(int buyAmount, int stock, int expectedFree) {
+        Promotion promotion = Promotion.of("A", 2, 1, mockDate1, mockDate2);
+        int free = promotion.countFree(buyAmount, stock);
+        assertThat(free).isEqualTo(expectedFree);
     }
 }
