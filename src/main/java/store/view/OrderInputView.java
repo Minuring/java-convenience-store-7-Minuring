@@ -11,7 +11,7 @@ public class OrderInputView extends InputViewTemplate<OrderCart> {
         "^\\[[a-zA-Z가-힣]+-\\d+\\](,\\[[a-zA-Z가-힣]+-\\d+\\])*$");
 
     @Override
-    public void printHeader() {
+    public void printHeader(Object... args) {
         System.out.println("구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])");
     }
 

@@ -6,14 +6,14 @@ import store.StoreException;
 
 public abstract class InputViewTemplate<T> {
 
-    public T readOnce() {
-        printHeader();
+    public T readOnce(Object... args) {
+        printHeader(args);
         String input = Console.readLine();
         return bind(input);
     }
 
-    public T readUntilSuccess() {
-        return readUntilSuccess(this::readOnce);
+    public T readUntilSuccess(Object... args) {
+        return readUntilSuccess(() -> readOnce(args));
     }
 
     protected T readUntilSuccess(Supplier<T> inputSupplier) {
@@ -29,7 +29,7 @@ public abstract class InputViewTemplate<T> {
         }
     }
 
-    public abstract void printHeader();
+    public abstract void printHeader(Object... args);
 
     public abstract T bind(String userInput);
 }
