@@ -16,6 +16,7 @@ public class OutputView {
         System.out.println("현재 보유하고 있는 상품입니다.");
         System.out.println();
         System.out.println(products);
+        System.out.println();
     }
 
     public static void printReceipt(Receipt receipt) {
@@ -23,7 +24,7 @@ public class OutputView {
         System.out.println("==========W 편의점=========");
         System.out.println("상품명\t\t수량\t\t금액");
         purchasedProducts.forEach(p ->
-            System.out.printf("%s %d %,d\n", p.getName(), p.getOrderQuantity(), p.getOrderPrice()));
+            System.out.printf("%s %d %,d\n", p.getName(), p.getOrderQuantity(), p.getOrderQuantity() * p.getOrderPrice()));
 
         System.out.println("==========증\t정=========");
         purchasedProducts.stream()
@@ -35,6 +36,7 @@ public class OutputView {
             receipt.getTotalOrderPrice());
         System.out.printf("행사할인\t-%,d\n", receipt.getTotalPromotionDiscount());
         System.out.printf("멤버십할인\t-%,d\n", receipt.getMembershipDiscount());
-        System.out.printf("내실돈\t%,d", receipt.getActualPay());
+        System.out.printf("내실돈\t%,d\n", receipt.getActualPay());
+        System.out.println();
     }
 }

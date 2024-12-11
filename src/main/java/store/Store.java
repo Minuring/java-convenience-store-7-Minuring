@@ -51,7 +51,7 @@ public class Store {
             free = promotion.countFreeWithStock(quantity, product.getStock());
             discount = free * price;
         }
-        receipt.add(name, quantity, price * quantity, appliedQuantity, free, discount);
+        receipt.add(name, quantity, price, appliedQuantity, free, discount);
     }
 
     private void takeStocks(OrderProduct orderProduct) {

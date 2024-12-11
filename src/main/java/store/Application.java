@@ -11,6 +11,7 @@ import store.order.Receipt;
 import store.product.Product;
 import store.promotion.Promotion;
 import store.view.AddOneInputView;
+import store.view.MembershipInputView;
 import store.view.NotAppliedPartlyInputView;
 import store.view.OrderInputView;
 import store.view.OutputView;
@@ -30,9 +31,18 @@ public class Application {
             addOneIfPromotionApplicable(orderProducts, simulator);
             if (checkPromotionNotApplicablePartly(orderProducts, simulator)) {
                 Receipt receipt = store.order(cart);
+                checkAppliesMembership(receipt);
+
                 OutputView.printReceipt(receipt);
             }
 
+        }
+    }
+
+    private static void checkAppliesMembership(Receipt receipt) {
+        boolean apply = new MembershipInputView().readUntilSuccess();
+        if (apply) {
+            receipt.applyMembership();
         }
     }
 

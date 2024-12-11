@@ -26,7 +26,7 @@ public class Receipt {
 
     public int getTotalOrderPrice() {
         return purchasedProducts.stream()
-            .mapToInt(PurchasedProduct::getOrderPrice)
+            .mapToInt(p -> p.getOrderPrice() * p.getOrderQuantity())
             .sum();
     }
 
@@ -42,9 +42,15 @@ public class Receipt {
             .sum();
     }
 
+    public int getTotalPromotionAppliedPrice() {
+        return purchasedProducts.stream()
+            .mapToInt(p -> p.promotionApplied * p.orderPrice)
+            .sum();
+    }
+
     public void applyMembership() {
-        int notAppliedPrice = getTotalOrderPrice() - getTotalPromotionDiscount();
-        membershipDiscount = Math.max((int) (notAppliedPrice * 0.3), 8000);
+        int notAppliedPrice = getTotalOrderPrice() - getTotalPromotionAppliedPrice();
+        membershipDiscount = Math.min((int) (notAppliedPrice * 0.3), 8000);
     }
 
     public int getMembershipDiscount() {
