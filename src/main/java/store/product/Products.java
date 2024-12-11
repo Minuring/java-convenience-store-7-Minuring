@@ -20,6 +20,12 @@ public class Products {
             .toList();
     }
 
+    public int getTotalStock(String name) {
+        return findByName(name).stream()
+            .mapToInt(Product::getStock)
+            .sum();
+    }
+
     public int countProducts() {
         return products.size();
     }

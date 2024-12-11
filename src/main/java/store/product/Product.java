@@ -27,6 +27,10 @@ public class Product {
         return price;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
     public boolean isPromotion() {
         return promotion.isPresent();
     }

@@ -13,4 +13,8 @@ public class OrderCart {
     public void addProduct(OrderProduct orderProduct) {
         orderProducts.add(orderProduct);
     }
+
+    public List<OrderProduct> getProducts() {
+        return orderProducts;
+    }
 }
