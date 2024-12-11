@@ -23,9 +23,18 @@ public class Promotion {
         return new Promotion(name, buy, get, startDate, endDate);
     }
 
-    public int countFree(int buyAmount, int stock) {
+    public int countFree(int buy) {
+        return buy / (this.buy + get);
+    }
+
+    public int countFreeWithStock(int buyAmount, int stock) {
         int unit = buy + get;
         return Math.min(buyAmount / unit, stock / unit);
+    }
+
+    public int countAppliedQuantity(int buyAmount, int stock) {
+        int unit = buy + get;
+        return countFreeWithStock(buyAmount, stock) * unit;
     }
 
     public boolean hasName(String name) {

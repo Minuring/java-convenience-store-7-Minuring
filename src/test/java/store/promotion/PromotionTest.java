@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -41,9 +40,9 @@ class PromotionTest {
         "3,0,0", "3,2,0", "3,3,1",
         "9,10,3", "10,10,3", "11,10,3", "12,10,3"
     })
-    void countFree(int buyAmount, int stock, int expectedFree) {
+    void countFreeWithStock(int buyAmount, int stock, int expectedFree) {
         Promotion promotion = Promotion.of("A", 2, 1, mockDate1, mockDate2);
-        int free = promotion.countFree(buyAmount, stock);
+        int free = promotion.countFreeWithStock(buyAmount, stock);
         assertThat(free).isEqualTo(expectedFree);
     }
 

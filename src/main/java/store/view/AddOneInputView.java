@@ -1,7 +1,5 @@
 package store.view;
 
-import store.view.exception.BadInputException;
-
 public class AddOneInputView extends InputViewTemplate<Boolean> {
 
     @Override
@@ -11,12 +9,6 @@ public class AddOneInputView extends InputViewTemplate<Boolean> {
 
     @Override
     public Boolean bind(String userInput) {
-        if (userInput.equalsIgnoreCase("Y")) {
-            return true;
-        }
-        if (userInput.equalsIgnoreCase("N")) {
-            return false;
-        }
-        throw new BadInputException();
+        return ViewUtils.readYN(userInput);
     }
 }

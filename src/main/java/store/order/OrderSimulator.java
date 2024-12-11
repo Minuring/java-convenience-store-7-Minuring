@@ -27,16 +27,12 @@ public class OrderSimulator {
     }
 
     public boolean canGetFreeIfAddOne(OrderProduct orderProduct) {
-        String name = orderProduct.name();
-        if (!products.hasPromotionItemByName(name)) {
-            return false;
-        }
-        Product product = products.getPromotionProductByName(name);
-        Promotion promotion = product.getPromotion().get();
-        if (!promotion.isApplicable(LocalDate.now())) {
+        if (isPromotionInconsiderable(orderProduct)) {
             return false;
         }
 
+        Product product = products.getPromotionProductByName(orderProduct.name());
+        Promotion promotion = product.getPromotion().get();
         return canGetFreeIfAddOne(orderProduct, product, promotion);
     }
 
@@ -44,8 +40,39 @@ public class OrderSimulator {
         Promotion promotion) {
         int quantity = orderProduct.quantity();
         int stock = product.getStock();
-        int free = promotion.countFree(quantity, stock);
-        int whenAdd = promotion.countFree(quantity + 1, stock);
+        int free = promotion.countFreeWithStock(quantity, stock);
+        int whenAdd = promotion.countFreeWithStock(quantity + 1, stock);
         return free < whenAdd;
+    }
+
+    public int calculateNotApplicablePromotionPartly(OrderProduct orderProduct) {
+        if (isPromotionInconsiderable(orderProduct)) {
+            return 0; //부분적으로 정가결제 해야할 수량이 없음.
+        }
+
+        Product product = products.getPromotionProductByName(orderProduct.name());
+        Promotion promotion = product.getPromotion().get();
+        return calculatePartAmount(orderProduct, product, promotion);
+    }
+
+    private int calculatePartAmount(OrderProduct orderProduct, Product product, Promotion promotion) {
+        int stock = product.getStock();
+        int quantity = orderProduct.quantity();
+        int freeWhenBuyInStock = promotion.countFreeWithStock(quantity, stock);
+        int appliedQuantity = promotion.countAppliedQuantity(quantity, stock);
+        if (quantity > stock && freeWhenBuyInStock >= 1) {
+            return quantity - appliedQuantity;
+        }
+        return 0;
+    }
+
+    private boolean isPromotionInconsiderable(OrderProduct orderProduct) {
+        String name = orderProduct.name();
+        if (!products.hasPromotionItemByName(name)) {
+            return true;
+        }
+        Product product = products.getPromotionProductByName(name);
+        Promotion promotion = product.getPromotion().get();
+        return !promotion.isApplicable(LocalDate.now());
     }
 }
