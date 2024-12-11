@@ -23,6 +23,10 @@ public class Promotion {
         return new Promotion(name, buy, get, startDate, endDate);
     }
 
+    public boolean hasName(String name) {
+        return this.name.equals(name);
+    }
+
     private static void validateGet(int buy, int get) {
         if (buy < 1 || get != 1) {
             throw new UnsupportedPromotionGetException();

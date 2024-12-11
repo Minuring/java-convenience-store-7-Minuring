@@ -19,6 +19,14 @@ public class Product {
         this.promotion = Optional.ofNullable(promotion);
     }
 
+    public static Product of(String name, int price, int stock) {
+        return new Product(name, price, stock, null);
+    }
+
+    public static Product of(String name, int price, int stock, Promotion promotion) {
+        return new Product(name, price, stock, promotion);
+    }
+
     private void validatePrice(int price) {
         if (price <= 0) {
             throw new InvalidPriceException();
@@ -29,13 +37,5 @@ public class Product {
         if (stock < 0) {
             throw new InvalidStockException();
         }
-    }
-
-    public static Product of(String name, int price, int stock) {
-        return new Product(name, price, stock, null);
-    }
-
-    public static Product of(String name, int price, int stock, Promotion promotion) {
-        return new Product(name, price, stock, promotion);
     }
 }
