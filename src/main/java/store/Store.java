@@ -96,6 +96,9 @@ public class Store {
             .filter(list -> list.size() == 1)
             .flatMap(Collection::stream)
             .toList();
-        onlyPromotionProducts.forEach(this.products::addProduct);
+        onlyPromotionProducts.forEach(p -> {
+            Product copyNormal = Product.of(p.getName(), p.getPrice(), 0);
+            this.products.addProduct(copyNormal);
+        });
     }
 }
