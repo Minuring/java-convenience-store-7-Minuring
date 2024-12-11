@@ -19,7 +19,8 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    public static Promotion of(String name, int buy, int get, LocalDate startDate, LocalDate endDate) {
+    public static Promotion of(String name, int buy, int get, LocalDate startDate,
+        LocalDate endDate) {
         return new Promotion(name, buy, get, startDate, endDate);
     }
 

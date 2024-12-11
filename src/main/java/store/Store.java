@@ -1,5 +1,6 @@
 package store;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +34,6 @@ public class Store {
             saveToReceipt(orderProduct, receipt);
             takeStocks(orderProduct);
         }
-
         return receipt;
     }
 
@@ -47,9 +47,11 @@ public class Store {
         if (products.hasPromotionItemByName(name)) {
             Product product = products.getPromotionProductByName(name);
             Promotion promotion = product.getPromotion().get();
-            appliedQuantity = promotion.countAppliedQuantity(quantity, product.getStock());
-            free = promotion.countFreeWithStock(quantity, product.getStock());
-            discount = free * price;
+            if (promotion.isApplicable(DateTimes.now().toLocalDate())) {
+                appliedQuantity = promotion.countAppliedQuantity(quantity, product.getStock());
+                free = promotion.countFreeWithStock(quantity, product.getStock());
+                discount = free * price;
+            }
         }
         receipt.add(name, quantity, price, appliedQuantity, free, discount);
     }
@@ -61,7 +63,7 @@ public class Store {
         if (products.hasPromotionItemByName(name)) {
             Product product = products.getPromotionProductByName(name);
             Promotion promotion = product.getPromotion().get();
-            if (promotion.isApplicable(LocalDate.now())) {
+            if (promotion.isApplicable(DateTimes.now().toLocalDate())) {
                 int promotionUsage = takePromotionStock(name, remainingQuantity);
                 remainingQuantity -= promotionUsage;
             }
