@@ -25,7 +25,7 @@
 ## 입출력 요구 사항
 - [ ] 입력 
   - [ ] src/main/resources/products.md를 읽어 상품 목록을 불러온다.
-  - [ ] src/main/resources/promotions.md를 읽어 행사 목록을 불러온다.
+  - [x] src/main/resources/promotions.md를 읽어 행사 목록을 불러온다.
 
   - [ ] 구매할 상품과 수량을 입력 받는다.ex) `[콜라-10],[사이다-3]`
   - [ ] 프로모션 적용이 가능한 상품에 대해 고객이 해당 수량보다 적게 가져온 경우 , 그 수량만큼 추가 여부를 입력받는다.
