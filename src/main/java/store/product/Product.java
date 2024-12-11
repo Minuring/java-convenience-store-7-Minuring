@@ -56,8 +56,15 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("- %s %,d원 %d개 %s", name, price, stock,
+        return String.format("- %s %,d원 %s %s", name, price, stockText(),
             promotion.map(Promotion::getName).orElse(""));
+    }
+
+    private String stockText() {
+        if (stock == 0) {
+            return "재고 없음";
+        }
+        return stock + "개";
     }
 
     private void validatePrice(int price) {
