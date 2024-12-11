@@ -32,6 +32,11 @@ public class Promotion {
         return this.name.equals(name);
     }
 
+    public boolean isApplicable(LocalDate date) {
+        return startDate.isBefore(date) && endDate.isAfter(date)
+            || (startDate.isEqual(date) || endDate.isEqual(date));
+    }
+
     private static void validateGet(int buy, int get) {
         if (buy < 1 || get != 1) {
             throw new UnsupportedPromotionGetException();

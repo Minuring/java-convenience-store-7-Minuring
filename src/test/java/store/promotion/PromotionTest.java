@@ -4,10 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class PromotionTest {
@@ -42,5 +45,37 @@ class PromotionTest {
         Promotion promotion = Promotion.of("A", 2, 1, mockDate1, mockDate2);
         int free = promotion.countFree(buyAmount, stock);
         assertThat(free).isEqualTo(expectedFree);
+    }
+
+    @ParameterizedTest
+    @MethodSource("inRangeDates")
+    void isApplicableInRangeDate(LocalDate date) {
+        Promotion promotion = Promotion.of("A", 2, 1, mockDate1, mockDate2);
+        boolean applicable = promotion.isApplicable(date);
+        assertThat(applicable).isTrue();
+    }
+
+    static List<Arguments> inRangeDates() {
+        return List.of(
+            Arguments.of(LocalDate.of(2020, 1, 1)),
+            Arguments.of(LocalDate.of(2020, 1, 15)),
+            Arguments.of(LocalDate.of(2020, 2, 1))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("outOfRangeDates")
+    void isApplicableOutOfRangeDate(LocalDate date) {
+        Promotion promotion = Promotion.of("A", 2, 1, mockDate1, mockDate2);
+        boolean applicable = promotion.isApplicable(date);
+        assertThat(applicable).isFalse();
+    }
+
+    static List<Arguments> outOfRangeDates() {
+        return List.of(
+            Arguments.of(LocalDate.of(2020, 2, 2)),
+            Arguments.of(LocalDate.of(2020, 12, 31)),
+            Arguments.of(LocalDate.of(2020, 5, 5))
+        );
     }
 }
