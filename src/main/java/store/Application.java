@@ -11,6 +11,7 @@ import store.order.Receipt;
 import store.product.Product;
 import store.promotion.Promotion;
 import store.view.AddOneInputView;
+import store.view.ContinueInputView;
 import store.view.MembershipInputView;
 import store.view.NotAppliedPartlyInputView;
 import store.view.OrderInputView;
@@ -36,6 +37,10 @@ public class Application {
                 OutputView.printReceipt(receipt);
             }
 
+            if (new ContinueInputView().readUntilSuccess()) {
+                continue;
+            }
+            break;
         }
     }
 
